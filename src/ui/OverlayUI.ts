@@ -92,9 +92,13 @@ function renderAppUi(state: AppUiState): string {
     )}</main>`;
   }
 
+  const overlayClass = state.snapshot.mode === "gameOver"
+    ? "overlay-layer game-over-layer"
+    : "overlay-layer";
+
   return `
     ${state.snapshot.mode !== "gameOver" ? renderHud(state.snapshot) : ""}
-    <main class="overlay-layer">
+    <main class="${overlayClass}">
       ${state.snapshot.mode === "question" ? renderQuestionModal(state.snapshot) : ""}
       ${state.snapshot.mode === "feedback" ? renderFeedbackOverlay(state.snapshot) : ""}
       ${

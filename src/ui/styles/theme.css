@@ -61,6 +61,7 @@ button {
   display: block;
   width: 100%;
   height: 100%;
+  touch-action: none;
 }
 
 .ui-root {
@@ -115,6 +116,20 @@ button {
   padding: 18px;
   pointer-events: none;
   z-index: 6;
+}
+
+.game-over-layer {
+  place-items: start center;
+  overflow-y: auto;
+  padding:
+    max(18px, env(safe-area-inset-top))
+    max(18px, env(safe-area-inset-right))
+    max(18px, env(safe-area-inset-bottom))
+    max(18px, env(safe-area-inset-left));
+  pointer-events: auto;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .menu-layer {
@@ -387,6 +402,8 @@ button {
 
 .game-over-panel h1 {
   margin: 0;
+  color: #d62828;
+  text-align: center;
   font-size: clamp(28px, 5vw, 42px);
 }
 
@@ -446,9 +463,43 @@ button {
     font-size: 30px;
   }
 
-  .choice-grid,
-  .summary-grid {
+  .choice-grid {
     grid-template-columns: 1fr;
+  }
+
+  .game-over-layer {
+    padding:
+      max(12px, env(safe-area-inset-top))
+      max(10px, env(safe-area-inset-right))
+      max(18px, env(safe-area-inset-bottom))
+      max(10px, env(safe-area-inset-left));
+  }
+
+  .game-over-panel {
+    gap: 12px;
+    width: min(560px, calc(100vw - 20px));
+    padding: 14px;
+  }
+
+  .game-over-panel h1 {
+    font-size: clamp(24px, 7vw, 34px);
+  }
+
+  .summary-grid {
+    gap: 8px;
+  }
+
+  .summary-grid div {
+    padding: 8px;
+  }
+
+  .summary-grid strong {
+    font-size: 20px;
+  }
+
+  .game-over-panel .menu-button,
+  .game-over-panel .save-row input {
+    min-height: 48px;
   }
 
   .menu-panel h1 {

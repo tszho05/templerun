@@ -11,13 +11,10 @@ export function renderGameOverOverlay(
 
   return `
     <section class="overlay-panel game-over-panel" role="dialog" aria-modal="true" aria-label="遊戲結算">
-      <h1>被追上了</h1>
+      <h1>Game Over</h1>
       <div class="summary-grid">
         <div><span>本局距離</span><strong>${Math.floor(score.currentDistance)}m</strong></div>
         <div><span>最高距離</span><strong>${Math.floor(score.highDistance)}m</strong></div>
-        <div><span>答對題數</span><strong>${score.correctAnswers}</strong></div>
-        <div><span>總題數</span><strong>${score.totalQuestions}</strong></div>
-        <div><span>答對率</span><strong>${formatPercent(score.accuracy)}</strong></div>
       </div>
       ${saveMarkup}
       <div class="menu-actions compact">
@@ -62,8 +59,4 @@ function renderSaveMarkup(saveState: LeaderboardSaveState): string {
       ${error}
     </form>
   `;
-}
-
-function formatPercent(value: number): string {
-  return `${Math.round((Number.isFinite(value) ? value : 0) * 100)}%`;
 }
