@@ -53,10 +53,14 @@ export type AssetManifest = {
   low: ObstacleAssetManifestEntry;
 };
 
-const ASSET_ROOT = "/assets/glb";
-const SPRITE_ROOT = "/assets/sprites";
-const TRACK_ROOT = "/assets/track";
-const ENVIRONMENT_ROOT = "/assets/environment";
+function publicAssetPath(path: string): string {
+  return `${import.meta.env.BASE_URL}${path}`;
+}
+
+const ASSET_ROOT = publicAssetPath("assets/glb");
+const SPRITE_ROOT = publicAssetPath("assets/sprites");
+const TRACK_ROOT = publicAssetPath("assets/track");
+const ENVIRONMENT_ROOT = publicAssetPath("assets/environment");
 
 export const assetManifest: AssetManifest = {
   runner: {
