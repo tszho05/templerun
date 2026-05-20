@@ -1,0 +1,17 @@
+node_modules/
+dist/
+artifacts/
+
+.env
+.env.*
+!.env.example
+
+*.log
+vite-dev*.log
+
+coverage/
+.vite/
+.cache/
+
+.DS_Store
+Thumbs.db
