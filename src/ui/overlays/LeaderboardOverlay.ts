@@ -15,13 +15,13 @@ export function renderLeaderboardOverlay(
           class="leaderboard-tab ${scope.type === "global" ? "active" : ""}"
           type="button"
           data-action="showGlobalLeaderboard"
-        >全球</button>
+        >公開</button>
         <button
           class="leaderboard-tab ${scope.type === "class" ? "active" : ""}"
           type="button"
           data-action="showClassLeaderboard"
           ${className ? "" : "disabled"}
-        >本班</button>
+        >個人</button>
       </div>
       ${renderRows(records, scope, loadState, className)}
       <div class="menu-actions compact">
