@@ -33,7 +33,7 @@ export type SimulationOptions = {
 };
 
 const FEEDBACK_DURATION_MS = 1200;
-const POST_QUESTION_SAFE_SECONDS = 2;
+const POST_QUESTION_SAFE_SECONDS = 3;
 
 export class SimulationCore {
   private readonly config: GameConfig;
