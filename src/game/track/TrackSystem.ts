@@ -56,6 +56,22 @@ export function updateTrackState(
   };
 }
 
+export function clearObstacleSafetyBuffer(
+  track: TrackState,
+  distanceMeters: number,
+  safeAheadMeters: number
+): TrackState {
+  const safeUntilMeters = distanceMeters + Math.max(0, safeAheadMeters);
+
+  return {
+    ...track,
+    obstacles: track.obstacles.filter(
+      (obstacle) => obstacle.distanceMeters < distanceMeters || obstacle.distanceMeters > safeUntilMeters
+    ),
+    nextObstacleAtMeters: Math.max(track.nextObstacleAtMeters, safeUntilMeters)
+  };
+}
+
 export function markObstacleHit(track: TrackState, obstacleId: string): TrackState {
   return {
     ...track,
