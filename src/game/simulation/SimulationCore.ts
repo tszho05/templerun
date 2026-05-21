@@ -7,7 +7,13 @@ import { QuestionSystem } from "../questions/QuestionSystem";
 import type { AnswerResult, QuestionSet } from "../questions/QuestionTypes";
 import { applyRunnerAction, createInitialRunnerState, setRunnerSlowed, updateRunnerMovement } from "../runner/RunnerSystem";
 import { createSeededRandom, type RandomSource } from "../shared/random";
-import { createInitialTrackState, markObstacleHit, type TrackState, updateTrackState } from "../track/TrackSystem";
+import {
+  clearObstacleSafetyBuffer,
+  createInitialTrackState,
+  markObstacleHit,
+  type TrackState,
+  updateTrackState
+} from "../track/TrackSystem";
 import type { GameConfig } from "./GameConfig";
 import { defaultGameConfig } from "./GameConfig";
 import type { FeedbackState, GameState } from "./GameState";
@@ -27,6 +33,7 @@ export type SimulationOptions = {
 };
 
 const FEEDBACK_DURATION_MS = 1200;
+const POST_QUESTION_SAFE_SECONDS = 3;
 
 export class SimulationCore {
   private readonly config: GameConfig;
@@ -155,11 +162,17 @@ export class SimulationCore {
       this.questionSystem.shouldTriggerQuestion(distanceMeters, this.state.nextQuestionAtMeters)
     ) {
       const currentQuestion = this.questionSystem.presentQuestion(nowMs, this.config);
+      this.track = clearObstacleSafetyBuffer(
+        this.track,
+        distanceMeters,
+        speed * POST_QUESTION_SAFE_SECONDS
+      );
       this.events.push({ type: "questionTriggered", questionId: currentQuestion.id });
       this.state = {
         ...this.state,
         mode: "question",
-        currentQuestion
+        currentQuestion,
+        obstacles: this.track.obstacles
       };
     }
   }
